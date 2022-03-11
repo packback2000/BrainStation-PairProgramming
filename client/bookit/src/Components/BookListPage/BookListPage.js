@@ -5,8 +5,12 @@ export default function BookListPage(props) {
         <section className="booklist">
            
                 <p className="book-title">{props.title}</p>
-                <p className='book-category'>{props.subject}</p>
-                <p className="book-price">{props.publishedYear}</p>
+                <p className="book-title">{props.author}</p>
+                <a href='{props.url}'> </a>
+                <img src={props.image} alt="book cover" />
+                <p className="book-title">{props.description}</p>
+                <p className="book-title">{props.rank}</p>
+                <p className="book-title">{props.weeksOnList}</p>
             
         </section>
     )
