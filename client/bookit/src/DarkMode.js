@@ -1,5 +1,4 @@
 import "./styles/DarkMode.css"
-import { ChangeEventHandler } from "react";
 import "./styles/styles.css"
 
 function DarkMode()  {
@@ -26,7 +25,7 @@ if (defaultDark) {
   setDark();
 }
 
-const toggleTheme: ChangeEventHandler<HTMLInputElement> = (e) => {
+const toggleTheme = (e) => {
     if (e.target.checked) {
       setDark();
     } else {

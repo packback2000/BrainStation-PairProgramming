@@ -2,8 +2,8 @@ import React from "react";
 
 export default class Rating extends React.Component {
     state = {
-        priceInputValue: "0",
-        priceInput: {
+        ratingInputValue: "0",
+        rateInput: {
           0: "1",
           1: "2",
           2: "3",
@@ -11,7 +11,7 @@ export default class Rating extends React.Component {
           4: "5",
         
         },
-        priceOutput: {}
+        rateOutput: {}
     }
 
     slider = React.createRef();
@@ -21,7 +21,7 @@ export default class Rating extends React.Component {
         this.slider.current.setAttribute("min", 0);
         this.slider.current.setAttribute(
           "max",
-          Object.keys(this.state.priceInput).length - 1
+          Object.keys(this.state.rateInput).length - 1
         );
         this.thumbSize = parseInt(
           window
@@ -32,24 +32,24 @@ export default class Rating extends React.Component {
         this.handleSliderValuePosition(this.slider.current);
       }
     
-      handlePricingSlide = e => {
-        this.setState({ priceInputValue: e.target.value });
+      handleRatingSlide = e => {
+        this.setState({ rateInputValue: e.target.value });
         this.handleSliderValuePosition(e.target);
       };
     
       handleSliderValuePosition = input => {
         const multiplier = input.value / input.max;
         const thumbOffset = this.thumbSize * multiplier;
-        const priceInputOffset =
+        const rateInputOffset =
           (this.thumbSize - this.sliderValue.current.clientWidth) / 2;
         this.sliderValue.current.style.left =
-          input.clientWidth * multiplier - thumbOffset + priceInputOffset + "px";
+          input.clientWidth * multiplier - thumbOffset + rateInputOffset + "px";
       };
     
-      getPricingData = (obj, pos) => {
+      getRatingData = (obj, pos) => {
         return pos !== undefined
-          ? obj[this.state.priceInputValue][pos]
-          : obj[this.state.priceInputValue];
+          ? obj[this.state.rateInputValue][pos]
+          : obj[this.state.rateInputValue];
       };
 
 render() {
@@ -61,12 +61,12 @@ render() {
             <input
               type="range"
               ref={this.slider}
-              defaultValue={this.state.priceInputValue}
-              onChange={this.handlePricingSlide}
+              defaultValue={this.state.rateInputValue}
+              onChange={this.handleRatingSlide}
             />
           </label>
           <div ref={this.sliderValue} className="pricing-slider-value">
-            {this.getPricingData(this.state.priceInput)}
+            {this.getRatingData(this.state.rateInput)}
           </div>
         </div>
         </div>

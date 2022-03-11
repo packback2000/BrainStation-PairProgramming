@@ -10,8 +10,6 @@ export default function BookListPage(props) {
                 <img src={props.image} alt="book cover" />
                 <p className="book-title">{props.description}</p>
                 <p className="book-title">{props.rank}</p>
-                <p className="book-title">{props.weeksOnList}</p>
-            
         </section>
     )
 }
