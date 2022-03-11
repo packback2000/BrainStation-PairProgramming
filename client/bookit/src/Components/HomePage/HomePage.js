@@ -2,6 +2,8 @@ import React from "react";
 import BookListPage from "../BookListPage/BookListPage";
 import "../../styles/styles.css"
 import "../../styles/DarkMode.css";
+import Pricing from "../Pricing/Pricing";
+import Rating from "../Pricing/Rating"
 
 
 let books = [
@@ -32,8 +34,6 @@ export default class HomePage extends React.Component {
             bookMap: []
         }
     }
-
-    
 
     handleChangeSearch = (event) => {
 
@@ -134,8 +134,11 @@ export default class HomePage extends React.Component {
                     <label>Enter a Search Term</label>
                     <input type='text' onChange={this.handleChangeSearch} value={this.state.search} name='search' />
                     <button type="submit" onClick={this.handleSubmit}>Search</button>
+
                 </form>
-            
+            <Pricing />
+            <Rating />
+
             <div className="middle">
                 <form className="sidebar">
                     <label>What Would You Like to Search By?</label>
@@ -150,7 +153,7 @@ export default class HomePage extends React.Component {
                         <input type='checkbox' value='Subject' onClick={this.searchByRank} />
                         <span className="slider round"/>
                     </label>
-                       
+        
                 </form>
                 
                 <div className="List">
