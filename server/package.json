@@ -1,0 +1,24 @@
+{
+  "name": "bookit",
+  "version": "1.0.0",
+  "description": "Book Search application connected to Google API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/packback2000/BrainStation-PairProgramming.git"
+  },
+  "author": "Madison Henry and Duane Imambaksh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/packback2000/BrainStation-PairProgramming/issues"
+  },
+  "homepage": "https://github.com/packback2000/BrainStation-PairProgramming#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cors": "^2.8.5"
+  }
+}
