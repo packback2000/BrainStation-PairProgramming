@@ -1,4 +1,4 @@
-//Stephen King author
+//Stephen King author - Google API
 https://www.googleapis.com/books/v1/volumes?q=stephen%20king+author
 //NYT api
 https://api.nytimes.com/svc/books/v3/lists/full-overview.json?api-key=UtGVIminLOIsARTqpteOFKc6nDsN1K83
