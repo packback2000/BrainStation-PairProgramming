@@ -1,14 +1,17 @@
 
 import HomePage from "./Components/HomePage/HomePage";
 import React from 'react';
+import DarkMode from "./DarkMode";
 
 
 function App() {
 
   
   return (
-
-    <HomePage />
+    <div>
+      <DarkMode />
+      <HomePage />
+    </div>
     
   );
 }
