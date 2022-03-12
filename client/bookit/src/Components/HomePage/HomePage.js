@@ -950,11 +950,7 @@ export default class HomePage extends React.Component {
     }
 
     filterByPrice = () => {
-        this.state.bookData.map((book) => {
-            if(book.saleInfo.retailPrice <= this.props.priceInput) {
-                console.log(book)
-            }
-        })
+        console.log(this.priceInput)
     }
 
     filterByRating = () => {
@@ -975,14 +971,15 @@ export default class HomePage extends React.Component {
       }
 
     searchByAverageRating = () => {
-        this.state.bookData.map((book) => {
-            if(book.volumeInfo.averageRating >= 4) {
-               let bookByRating = this.state.bookData.filter(book)
-                this.setState({
-                  bookData: bookByRating
-                })
-            }
-        })
+      let bookVar = this.state.bookData.filter((book) => {
+        if(book.volumeInfo.averageRating >=4){
+          console.log(book)
+          return book
+        }
+      })
+       this.setState({
+         bookData:bookVar
+       })
     }
 
     fetchBookDetails() {
