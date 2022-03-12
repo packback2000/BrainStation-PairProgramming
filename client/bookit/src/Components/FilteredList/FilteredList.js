@@ -7,9 +7,10 @@ export default class FilteredList extends Component {
   state = {
     searchData: [],
     searchString: "dirty work",
-    ratingRange:{min: 0, max:10},
-    priceRange:{min: 0, max:10},
+    ratingRange: { min: 0, max: 10 },
+    priceRange: { min: -1, max: 10 },
     ratingFilter: 0,
+    priceFilter: -1,
   };
 
   setSearchData = (searchDataIn) => {
@@ -32,6 +33,10 @@ export default class FilteredList extends Component {
     this.setState({ ratingFilter: ratingDataIn });
   };
 
+  setPriceFilter = (priceDataIn) => {
+    this.setState({ priceFilter: priceDataIn });
+  };
+
   getSearchData = () => {
     axios
       .get(`http://localhost:8080/search/${this.state.searchString}`)
@@ -41,13 +46,20 @@ export default class FilteredList extends Component {
       });
   };
 
-  rangeChangeHandler = (event) =>{
-      console.log(event);
-      this.setRatingFilter(event.target.value);
-  }
+  rangeChangeHandler = (event) => {
+    console.log(event);
+    switch (event.target.id) {
+      case "ratingRange":
+        this.setRatingFilter(event.target.value);
+        break;
+      case "priceRange":
+        this.setPriceFilter(event.target.value);
+        break;
+    }
+  };
 
-  componentDidMount(){
-      this.getSearchData();
+  componentDidMount() {
+    this.getSearchData();
   }
 
   searchByRatingNumber = () => {
@@ -80,36 +92,38 @@ export default class FilteredList extends Component {
     console.log(this.state.searchData);
     return (
       <div className="searchList">
-        <div className="middle">
-        <input type="range" onChange={this.rangeChangeHandler} min={this.state.ratingRange.min} max={this.state.ratingRange.max} value={this.state.ratingFilter} className="slider" id="ratingRange"></input>
-        
-        <form className="sidebar">
-                    <label>Filter By</label>
-                   <br></br>
-                   <br></br>
-                   <label>Ratings</label>
-                    <label className="switch">
-                        <input type='checkbox' value='Ratings' onClick={this.searchByRatingNumber}/>
-                        <span className="slider round"/>
-                        </label>
-                    <label>Average Rating 4+</label>
-                    <label className="switch">
-                        <input type='checkbox' value='Average Rank' onClick={this.searchByAverageRating} />
-                        <span className="slider round"/>
-                    </label>
-                </form>
-        </div>
-        {this.state.searchData.filter(result => result.rating >= this.state.ratingFilter).map((result, index) => (
-          <ListItem
-            key={result.id}
-            id={result.id}
-            title={result.title}
-            rating={result.rating}
-            ratingcount={result.ratingcount}
-            link={result.link}
-            image={result.image}
-          ></ListItem>
-        ))}
+        <input
+          type="range"
+          onChange={this.rangeChangeHandler}
+          min={this.state.ratingRange.min}
+          max={this.state.ratingRange.max}
+          value={this.state.ratingFilter}
+          className="slider"
+          id="ratingRange"
+        ></input>
+        <input
+          type="range"
+          onChange={this.rangeChangeHandler}
+          min={this.state.priceRange.min}
+          max={this.state.priceRange.max}
+          value={this.state.priceFilter}
+          className="slider"
+          id="priceRange"
+        ></input>
+        {this.state.searchData
+          .filter((result) => (result.rating >= this.state.ratingFilter && result.price >= this.state.priceFilter))
+          .map((result, index) => (
+            <ListItem
+              key={result.id}
+              id={result.id}
+              title={result.title}
+              rating={result.rating}
+              ratingcount={result.ratingcount}
+              price={result.price}
+              link={result.link}
+              image={result.image}
+            ></ListItem>
+          ))}
       </div>
     );
   }

@@ -41,10 +41,6 @@ function createSearchResults(data, searchString, searchLimit) {
         .toLowerCase()
         .indexOf(searchTermSplit[0].toLowerCase()) >= 0;
 
-    let isForSale =
-      currentItem.saleInfo.saleability === "NOT_FOR_SALE"
-        ? -1
-        : currentItem.saleInfo.listPrice;
     /**
      * rating,
      * ratingcount,
@@ -64,7 +60,7 @@ function createSearchResults(data, searchString, searchLimit) {
         id: currentItem.id,
         rating: currentItem.volumeInfo.averageRating || 0,
         ratingcount: currentItem.volumeInfo.ratingsCount || 0,
-        price: isForSale,
+        price: currentItem.saleInfo.listPrice || -1,
         title: currentItem.volumeInfo.title,
         subtitle: currentItem.volumeInfo.subtitle,
         searchTermInTitle: searchTermInTitle,
