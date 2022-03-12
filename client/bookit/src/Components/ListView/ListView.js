@@ -17,7 +17,7 @@ export default class ListView extends Component {
     this.setState({ searchData: searchDataIn });
   };
 
-  setSearchStromg = (searchStringIn) => {
+  setSearchString = (searchStringIn) => {
     this.setState({ searchString: searchStringIn });
   };
 
