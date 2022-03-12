@@ -56,7 +56,7 @@ header .slider.round:before {
   padding: 15px;
 }
 .middle .List hr {
-  width: 90%;
+  width: 100%;
 }
 .middle .List h1 {
   margin: 0px;
@@ -145,6 +145,7 @@ header .slider.round:before {
   display: flex;
   flex-wrap: wrap;
   width: 88%;
+  margin-left: 15px;
 }
 .searchList .test {
   display: flex;
@@ -162,7 +163,7 @@ header .slider.round:before {
 
 .all {
   display: flex;
-  width: 90%;
+  width: 100%;
 }
 .all .switch {
   position: relative;

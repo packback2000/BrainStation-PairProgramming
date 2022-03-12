@@ -10,9 +10,9 @@ function ListItem(props) {
           Rating: {(props.rating || props.ratingcount !== 0) ? props.rating : "Not Available"}
         </span><br />
         <span className="search__list__details_rating">
-          Price: {(props.price.amount !== -1) ? "$" + props.price.amount : " PriceNot Available"}
+          Price: {(props.price.amount !== -1) ? "$" + props.price.amount : "Not Available"}
           <br></br> 
-          {(props.price.currencyCode !== "USD") ? "$" + props.price.currencyCode : "Currency Code Not Available"}
+          {(props.price.currencyCode !== null) ? "$" + props.price.currencyCode : "Not Available"}
           <span className="search__list__details_rating">
            
           </span>
