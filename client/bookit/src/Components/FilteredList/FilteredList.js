@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import ListItem from "../ListItem/ListItem";
+import "../../styles/styles.css"
 
 export default class FilteredList extends Component {
   state = {
@@ -49,11 +50,55 @@ export default class FilteredList extends Component {
       this.getSearchData();
   }
 
+  searchByRatingNumber = () => {
+    let bookVar = this.state.searchData.filter((book) => {
+          if(book.ratingcount >= 1){
+              console.log(book)
+              return book
+      }
+     })
+     console.log(bookVar)
+     this.setState({
+       searchData: bookVar
+     })
+    }
+
+  searchByAverageRating = () => {
+    let bookVar = this.state.searchData.filter((book) => {
+      console.log(book)
+      if(book.rating >= 4){
+        console.log(book)
+        return book
+      }
+    })
+     this.setState({
+       searchData:bookVar
+     })
+    }
+
   render() {
     console.log(this.state.searchData);
     return (
       <div className="searchList">
+        <div className="middle">
         <input type="range" onChange={this.rangeChangeHandler} min={this.state.ratingRange.min} max={this.state.ratingRange.max} value={this.state.ratingFilter} className="slider" id="ratingRange"></input>
+        
+        <form className="sidebar">
+                    <label>Filter By</label>
+                   <br></br>
+                   <br></br>
+                   <label>Ratings</label>
+                    <label className="switch">
+                        <input type='checkbox' value='Ratings' onClick={this.searchByRatingNumber}/>
+                        <span className="slider round"/>
+                        </label>
+                    <label>Average Rating 4+</label>
+                    <label className="switch">
+                        <input type='checkbox' value='Average Rank' onClick={this.searchByAverageRating} />
+                        <span className="slider round"/>
+                    </label>
+                </form>
+        </div>
         {this.state.searchData.filter(result => result.rating >= this.state.ratingFilter).map((result, index) => (
           <ListItem
             key={result.id}

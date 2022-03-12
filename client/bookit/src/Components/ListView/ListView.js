@@ -36,7 +36,7 @@ export default class ListView extends Component {
 
   searchByRatingNumber = () => {
     let bookVar = this.state.searchData.filter((book) => {
-          if(book.volumeInfo.ratingsCount >= 1){
+          if(book.ratingcount >= 1){
               console.log(book)
               return book
       }
@@ -48,9 +48,9 @@ export default class ListView extends Component {
     }
 
   searchByAverageRating = () => {
-    let bookVar = this.state.bookData.filter((book) => {
+    let bookVar = this.state.searchData.filter((book) => {
       console.log(book)
-      if(book.volumeInfo.averageRating >=4){
+      if(book.rating >=4){
         console.log(book)
         return book
       }
@@ -66,7 +66,6 @@ export default class ListView extends Component {
       <section className="searchList">
         <div className="test">
         <div className="put-to-side">
-            <Pricing />
             <div className="middle">
                 <form className="sidebar">
                     <label>Filter By</label>
