@@ -60,7 +60,7 @@ function createSearchResults(data, searchString, searchLimit) {
         id: currentItem.id,
         rating: currentItem.volumeInfo.averageRating || 0,
         ratingcount: currentItem.volumeInfo.ratingsCount || 0,
-        price: currentItem.saleInfo.listPrice || -1,
+        price: currentItem.saleInfo.listPrice || {amount: -1, currencyCode: "USD"},
         title: currentItem.volumeInfo.title,
         subtitle: currentItem.volumeInfo.subtitle,
         searchTermInTitle: searchTermInTitle,

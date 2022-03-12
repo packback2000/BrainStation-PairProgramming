@@ -9,6 +9,9 @@ function ListItem(props) {
         <span className="search__list__details_rating">
           Rating: {props.rating} ({props.ratingcount})
         </span>
+        <span className="search__list__details_rating">
+          Price: ${props.price.amount} ${props.price.currencyCode}
+        </span>
       </div>
     </div>
   );
