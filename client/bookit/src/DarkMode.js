@@ -14,12 +14,8 @@ const setLight = () => {
 
 const storedTheme = localStorage.getItem("theme");
 
-const prefersDark =
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches;
-
 const defaultDark =
-  storedTheme === "dark" || (storedTheme === null && prefersDark);
+  storedTheme === "dark"
 
 if (defaultDark) {
   setDark();

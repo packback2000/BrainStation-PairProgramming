@@ -99,9 +99,16 @@ export default class ListView extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Searching ... ${this.state.searchString}`);
-    this.getSearchData();
-  };
+    let bookVar = this.state.searchData.filter((book) => {
+            if (book.title === (this.state.search) || book.author === (this.state.search)) {
+                return book
+            }
+        })
+        this.setState({
+          searchData: bookVar
+        })
+    
+    }
 
   render() {
     return (

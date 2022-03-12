@@ -79,7 +79,10 @@ header {
 
         h1 {
             margin: 0px;
-            margin: auto;
+           
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
    
 
@@ -99,6 +102,9 @@ header {
 
     .book-title {
         font-size: 30px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     .book-author {
@@ -189,9 +195,9 @@ header {
 
 .searchList {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    width: 88%;
-    margin-left: 15px;
+    width: 100%;
 
     .test{
         display: flex;
@@ -203,10 +209,18 @@ header {
         margin: 15px;
         margin-top: 0px;
         width: 15%;
+        padding: 25px;
 
-        .search__list__title{
-            flex-grow: 2;
-
+        .search__list_title{
+            width: 20px;
+            p {
+                min-width: 15ch;
+                max-width: 20ch;
+                font-size: 20px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+        }
         }
 
     }
@@ -279,25 +293,34 @@ header {
     }
         
     .sidebar {
-        width:10%;
+        width: 10%;
+        padding:  10px;
     }
 
     .books {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        padding: 15px;
 
         .List {
             width: 30%;
         }
 
         .book-title {
-            
+            font-size: 30px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
     }
 
     .book-title{
         width: auto;
+        font-size: 30px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
 }
@@ -312,4 +335,14 @@ header {
    margin: 15px;
    display: flex;
    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.book-List {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 90%;
 }
