@@ -71,8 +71,7 @@ export default class ListView extends Component {
 handleSubmit = (e) => {
     e.preventDefault();
     let bookVar = this.state.searchData.filter((book) => {
-      console.log(book)
-            if (book.title === (this.state.search)) {
+            if (book.title === (this.state.search) || book.author === (this.state.search)) {
                 return book
             }
         })
@@ -112,7 +111,7 @@ handleSubmit = (e) => {
                 </div>
                 </div>
                 </div>
-        <div className="searchList">
+        <div className="book-List">
 
         
           {this.state.searchData.map((result, index) => (
