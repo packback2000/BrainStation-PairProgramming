@@ -12,13 +12,13 @@ import FilteredList from "./Components/FilteredList/FilteredList";
 
 function App() {
 
-  
   return (
     <div>
       <BrowserRouter>
       <DarkMode></DarkMode>
       <Header />
       <Routes>
+      
         <Route path="/" element={ <HomePage />}></Route>
         <Route path="/search/:bookID" element = {<BookListPage /> } />
         <Route path="/searchTest" element = {<ListView />} />
