@@ -45,9 +45,6 @@ function createSearchResults(data, searchString) {
   console.log(`description ${currentItem.volumeInfo.description}`);
   console.log(`rating ${currentItem.volumeInfo.averageRating}`);
   console.log(`number of ratings ${currentItem.volumeInfo.ratingsCount}`);
-  console.log(
-    `thumbnail ${currentItem.volumeInfo.imageLinks.thumbnail} sale ${currentItem.saleInfo.saleability}`
-  );
   let isForSale =
     currentItem.saleInfo.saleability === "NOT_FOR_SALE"
       ? false
