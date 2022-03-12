@@ -7,10 +7,15 @@ function ListItem(props) {
       <img src={props.image}/>
       <div className="search__list__details">
         <span className="search__list__details_rating">
-          Rating: {props.rating} ({props.ratingcount})
-        </span>
+          Rating: {(props.rating || props.ratingcount !== 0) ? props.rating : "Not Available"}
+        </span><br />
         <span className="search__list__details_rating">
-          Price: ${props.price.amount} ${props.price.currencyCode}
+          Price: {(props.price.amount !== undefined) ? "$" + props.price.amount : " PriceNot Available"}
+          <br></br> 
+          {(props.price.currencyCode !== undefined) ? "$" + props.price.currencyCode : "Currency Code Not Available"}
+          <span className="search__list__details_rating">
+           
+          </span>
         </span>
       </div>
     </div>
