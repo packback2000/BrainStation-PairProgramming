@@ -68,7 +68,7 @@ function createSearchResults(data, searchString, searchLimit) {
         searchTermInAuthor: searchTermInAuthor,
         link: currentItem.saleInfo.buyLink,
         description: currentItem.volumeInfo.description,
-        image: currentItem.volumeInfo.imageLinks.thumbnail,
+        image: (currentItem.volumeInfo.imageLinks && currentItem.volumeInfo.imageLinks.thumbnail) || "",
       },
     ];
   });

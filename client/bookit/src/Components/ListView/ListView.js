@@ -3,15 +3,18 @@ import { Component } from "react";
 import ListItem from "../ListItem/ListItem";
 import Rating from "../Pricing/Rating";
 import HomePage from "../HomePage/HomePage";
-import "../../styles/styles.css"
+import "../../styles/styles.css";
 import Pricing from "../Pricing/Pricing";
 
 export default class ListView extends Component {
   state = {
     searchData: [],
-    searchString: "dirty work",
+    searchString: "",
     bookData: [],
-    search:[]
+    ratingRange: { min: 0, max: 10 },
+    priceRange: { min: -1, max: 10 },
+    ratingFilter: 0,
+    priceFilter: -1,
   };
 
   setSearchData = (searchDataIn) => {
@@ -22,112 +25,144 @@ export default class ListView extends Component {
     this.setState({ searchString: searchStringIn });
   };
 
+  setRatingRange = (ratingDataIn) => {
+    this.setState({ ratingRange: ratingDataIn });
+  };
+
+  setPriceRange = (priceDataIn) => {
+    this.setState({ priceRange: priceDataIn });
+  };
+
+  setRatingFilter = (ratingDataIn) => {
+    this.setState({ ratingFilter: ratingDataIn });
+  };
+
+  setPriceFilter = (priceDataIn) => {
+    this.setState({ priceFilter: priceDataIn });
+  };
+
   getSearchData = () => {
     axios
       .get(`http://localhost:8080/search/${this.state.searchString}`)
       .then((res) => {
         const searchResults = res.data;
+        console.log(searchResults);
+        const priceRange = this.getMinMaxPrice(searchResults);
+        console.log(priceRange);
+        const ratingRange = this.getMinMaxRate(searchResults);
+        console.log(ratingRange);
+        this.setPriceRange({ min: priceRange[0], max: priceRange[1] });
+        this.setRatingRange({ min: ratingRange[0], max: ratingRange[1] });
         this.setSearchData(searchResults);
       });
   };
 
-  componentDidMount(){
-      this.getSearchData();
-  }
+  getMinMaxPrice = (data) => {
+    return data.reduce((acc, val) => {
+      acc[0] =
+        acc[0] === undefined || val.price.amount < acc[0]
+          ? val.price.amount
+          : acc[0];
+      acc[1] =
+        acc[1] === undefined || val.price.amount > acc[1]
+          ? val.price.amount
+          : acc[1];
+      return acc;
+    }, []);
+  };
 
-  searchByRatingNumber = () => {
-    let bookVar = this.state.searchData.filter((book) => {
-          if(book.ratingcount >= 1){
-              console.log(book)
-              return book
-      }
-     })
-     console.log(bookVar)
-     this.setState({
-       searchData: bookVar
-     })
+  getMinMaxRate = (data) => {
+    return data.reduce((acc, val) => {
+      acc[0] =
+        acc[0] === undefined || val.rating < acc[0] ? val.rating : acc[0];
+      acc[1] =
+        acc[1] === undefined || val.rating > acc[1] ? val.rating : acc[1];
+      return acc;
+    }, []);
+  };
+
+  rangeChangeHandler = (event) => {
+    console.log(event);
+    switch (event.target.id) {
+      case "ratingRange":
+        this.setRatingFilter(event.target.value);
+        break;
+      case "priceRange":
+        this.setPriceFilter(event.target.value);
+        break;
     }
+  };
 
-  searchByAverageRating = () => {
-    let bookVar = this.state.searchData.filter((book) => {
-      console.log(book)
-      if(book.rating >=4){
-        console.log(book)
-        return book
-      }
-    })
-     this.setState({
-       searchData:bookVar
-     })
-    }
-
-      
   handleChangeSearch = (event) => {
-    this.setState({
-        search: event.target.value
-    })
-}
+    this.setSearchString(event.target.value);
+  };
 
-handleSubmit = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    let bookVar = this.state.searchData.filter((book) => {
-      console.log(book)
-            if (book.title === (this.state.search)) {
-                return book
-            }
-        })
-        this.setState({
-          searchData: bookVar
-        })
-    
-    }
+    console.log(`Searching ... ${this.state.searchString}`);
+    this.getSearchData();
+  };
 
   render() {
-    
     return (
-      <section >
-         <form onSubmit={this.handleSubmit} className='mainform'>
-                    <label>Enter a Search Term</label>
-                    <input type='text' onChange={this.handleChangeSearch} value={this.state.search} name='search' />
-                    <button type="submit" onClick={this.handleSubmit}>Search</button>
-                </form>
+      <section>
+        <form onSubmit={this.handleSubmit} className="mainform">
+          <label>Enter a Search Term</label>
+          <input
+            type="text"
+            onChange={this.handleChangeSearch}
+            value={this.state.search}
+            name="search"
+          />
+          <button type="submit" onClick={this.handleSubmit}>
+            Search
+          </button>
+        </form>
         <div className="searchList">
-        <div className="test">
-        <div className="put-to-side">
-            <div className="middle">
-                <form className="sidebar">
-                   <br></br>
-                   <br></br>
-                   <label>Ratings</label>
-                    <label className="switch">
-                        <input type='checkbox' value='Ratings' onClick={this.searchByRatingNumber}/>
-                        <span className="slider round"/>
-                        </label>
-                    <label>Average Ranking 4+</label>
-                    <label className="switch">
-                        <input type='checkbox' value='Average Rank' onClick={this.searchByAverageRating} />
-                        <span className="slider round"/>
-                    </label>
-                </form>
-                </div>
-                </div>
-                </div>
-        <div className="searchList">
-
-        
-          {this.state.searchData.map((result, index) => (
-            <ListItem
-              key={result.id}
-              id={result.id}
-              title={result.title}
-              rating={result.rating}
-              ratingcount={result.ratingcount}
-              link={result.link}
-              image={result.image}
-              price={result.price}
-            ></ListItem>
-          ))}
-        </div>
+          <div>
+            <div>
+              <div>
+                <input
+                  type="range"
+                  onChange={this.rangeChangeHandler}
+                  min={this.state.ratingRange.min}
+                  max={this.state.ratingRange.max}
+                  value={this.state.ratingFilter}
+                  className="slider"
+                  id="ratingRange"
+                ></input>
+                <input
+                  type="range"
+                  onChange={this.rangeChangeHandler}
+                  min={this.state.priceRange.min}
+                  max={this.state.priceRange.max}
+                  value={this.state.priceFilter}
+                  className="slider"
+                  id="priceRange"
+                ></input>
+              </div>
+            </div>
+          </div>
+          <div className="searchList">
+            {this.state.searchData
+              .filter(
+                (result) =>
+                  result.rating >= this.state.ratingFilter &&
+                  result.price.amount >= this.state.priceFilter
+              )
+              .map((result, index) => (
+                <ListItem
+                  key={`${result.id}-${index}`}
+                  id={result.id}
+                  title={result.title}
+                  rating={result.rating}
+                  ratingcount={result.ratingcount}
+                  link={result.link}
+                  image={result.image}
+                  price={result.price}
+                ></ListItem>
+              ))}
+          </div>
         </div>
       </section>
     );
