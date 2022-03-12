@@ -137,4 +137,28 @@ header .slider.round:before {
 }
 .middle .sidebar .slider.round:before {
   border-radius: 50%;
+}
+
+.searchList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 88%;
+  margin-left: 15px;
+}
+.searchList .test {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+}
+.searchList .search__list {
+  margin: 15px;
+  margin-top: 0px;
+  width: 15%;
+}
+.searchList .search__list .search__list__title {
+  flex-grow: 3;
+  overflow: hidden;
+  max-width: 20ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }/*# sourceMappingURL=styles.css.map */

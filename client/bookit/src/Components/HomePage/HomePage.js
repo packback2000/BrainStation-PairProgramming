@@ -4,6 +4,7 @@ import "../../styles/styles.css"
 import "../../styles/DarkMode.css";
 import Pricing from "../Pricing/Pricing";
 import axios from 'axios';
+import ListView from "../ListView/ListView";
 
 export default class HomePage extends React.Component {
     constructor(props) {
@@ -30,29 +31,9 @@ export default class HomePage extends React.Component {
         }
     }
 
-    handleChangeSearch = (event) => {
-        this.setState({
-            search: event.target.value
-        })
-    }
-    
-    handleSubmit = (e) => {
-        e.preventDefault();
-        let bookVar = this.state.bookData.filter((book) => {
-                if (book.volumeInfo.title === (this.state.search)) {
-                    return book
-                }
-            })
-            this.setState({
-              bookData: bookVar
-            })
-        
-        }
+   
         
 
-    filterByPrice = () => {
-        console.log()
-    }
 
     searchByRatingNumber = () => {
       let bookVar = this.state.bookData.filter((book) => {
@@ -79,6 +60,7 @@ export default class HomePage extends React.Component {
        })
     }
 
+
     fetchBookDetails() {
        axios.get("https://www.googleapis.com/books/v1/volumes?q=stephen%20king+author")
        .then((response) => {
@@ -91,7 +73,7 @@ export default class HomePage extends React.Component {
 
     componentDidMount() {
         this.fetchBookDetails();
-        let searchString = this.state.search
+       // let searchString = this.state.search
        // axios.get('http://localhost:8080/search/' + searchString)
        // .then(response => console.log(response))
     }
@@ -99,25 +81,17 @@ export default class HomePage extends React.Component {
     componentWillUnmount() {
         console.log('componentWillUnmount');
       }
+      
 
     render() {
 
         return(
-            <section>
-                <header>
+            <section className="test">
 
-                    </header>
-
-                <form onSubmit={this.handleSubmit} className='mainform'>
-                    <label>Enter a Search Term</label>
-                    <input type='text' onChange={this.handleChangeSearch} value={this.state.search} name='search' />
-                    <button type="submit" onClick={this.handleSubmit}>Search</button>
-
-                </form>
+            <div className="put-to-side">
             <Pricing 
               onChange = {this.filterByPrice}
             />
-
             <div className="middle">
                 <form className="sidebar">
                     <label>Filter By</label>
@@ -133,14 +107,14 @@ export default class HomePage extends React.Component {
                         <input type='checkbox' value='Average Rank' onClick={this.searchByAverageRating} />
                         <span className="slider round"/>
                     </label>
-        
                 </form>
+                </div>
+
+                
 
                 <div className="bookList">
                 {this.state.bookData.map((book) => 
-                
                 <div className="List">
-                
                 <BookListPage 
                 id = {book.id}
                 title = {book.volumeInfo.title}
