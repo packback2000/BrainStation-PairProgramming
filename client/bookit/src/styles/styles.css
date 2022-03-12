@@ -47,6 +47,8 @@ header .slider.round:before {
 
 .middle {
   display: flex;
+  flex-direction: column;
+  width: 10%;
 }
 .middle .List {
   display: flex;
@@ -156,9 +158,70 @@ header .slider.round:before {
   width: 15%;
 }
 .searchList .search__list .search__list__title {
-  flex-grow: 3;
-  overflow: hidden;
-  max-width: 20ch;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  flex-grow: 2;
+}
+
+.all {
+  display: flex;
+  width: 100%;
+}
+.all .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.all .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.all .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+.all .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+.all input:checked + .slider {
+  background-color: cornflowerblue;
+}
+.all input:focus + .slider {
+  box-shadow: 0 0 1px cornflowerblue;
+}
+.all input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.all .slider.round {
+  border-radius: 20px;
+}
+.all .slider.round:before {
+  border-radius: 50%;
+}
+.all .sidebar {
+  width: 10%;
+}
+.all .books {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.all .books .List {
+  width: 30%;
+}
+.all .book-title {
+  width: auto;
 }/*# sourceMappingURL=styles.css.map */

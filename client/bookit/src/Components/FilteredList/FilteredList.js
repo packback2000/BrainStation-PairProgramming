@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import ListItem from "../ListItem/ListItem";
+import "../../styles/styles.css"
 
 export default class FilteredList extends Component {
   state = {
@@ -80,6 +81,32 @@ export default class FilteredList extends Component {
   componentDidMount() {
     this.getSearchData();
   }
+
+  searchByRatingNumber = () => {
+    let bookVar = this.state.searchData.filter((book) => {
+          if(book.ratingcount >= 1){
+              console.log(book)
+              return book
+      }
+     })
+     console.log(bookVar)
+     this.setState({
+       searchData: bookVar
+     })
+    }
+
+  searchByAverageRating = () => {
+    let bookVar = this.state.searchData.filter((book) => {
+      console.log(book)
+      if(book.rating >= 4){
+        console.log(book)
+        return book
+      }
+    })
+     this.setState({
+       searchData:bookVar
+     })
+    }
 
   render() {
     console.log(this.state.searchData);

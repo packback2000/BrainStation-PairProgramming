@@ -2,9 +2,8 @@ import React from "react";
 import BookListPage from "../BookListPage/BookListPage";
 import "../../styles/styles.css"
 import "../../styles/DarkMode.css";
-import Pricing from "../Pricing/Pricing";
 import axios from 'axios';
-import ListView from "../ListView/ListView";
+
 
 export default class HomePage extends React.Component {
     constructor(props) {
@@ -88,11 +87,8 @@ export default class HomePage extends React.Component {
         return(
             <section className="test">
 
-            <div className="put-to-side">
-            <Pricing 
-              onChange = {this.filterByPrice}
-            />
-            <div className="middle">
+           
+            <div className="all">
                 <form className="sidebar">
                     <label>Filter By</label>
                    <br></br>
@@ -108,11 +104,11 @@ export default class HomePage extends React.Component {
                         <span className="slider round"/>
                     </label>
                 </form>
-                </div>
+
 
                 
 
-                <div className="bookList">
+                <div className="books">
                 {this.state.bookData.map((book) => 
                 <div className="List">
                 <BookListPage 

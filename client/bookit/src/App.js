@@ -7,8 +7,8 @@ import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import Header from "./Components/Header/Header";
 import BookListPage from "./Components/BookListPage/BookListPage";
-import ListView from "./Components/ListView/ListView";
 import FilteredList from "./Components/FilteredList/FilteredList";
+import ListView from "./Components/ListView/ListView"
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
       
         <Route path="/" element={ <ListView />}></Route>
         <Route path="/search/:bookID" element = {<BookListPage /> } />
-        <Route path="/searchTest" element = {<ListView />} />
+        <Route path="/searchTest" element = {<FilteredList />} />
         <Route path='/search/StephenKing' element={<HomePage />} />
         <Route path="/filterTest" element = {<FilteredList />} />
       </Routes>
