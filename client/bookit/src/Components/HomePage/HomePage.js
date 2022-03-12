@@ -63,11 +63,7 @@ export default class HomePage extends React.Component {
     */
 
     fetchPopularBookDetails() {
-        axios.get(books)
-        .then((response) => {
-            console.log(response)
-        })
-
+        
            /* this.setState({
                 title: book.title,
                 author: book.author,
