@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-      
+      <DarkMode></DarkMode>
       <Routes>
         
         <Route path="/" element={ <HomePage />}></Route>
