@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import Header from "./Components/Header/Header";
 import BookListPage from "./Components/BookListPage/BookListPage";
-
+import ListView from "./Components/ListView/ListView";
 
 function App() {
 
@@ -20,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <HomePage />}></Route>
         <Route path="/search/:bookID" element = {<BookListPage /> } />
+        <Route path="/searchTest" element = {<ListView />} />
       </Routes>
       </BrowserRouter>
     </div>

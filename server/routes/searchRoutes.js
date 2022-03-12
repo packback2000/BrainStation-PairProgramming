@@ -28,30 +28,23 @@ function createSearchResults(data, searchString, searchLimit) {
   data.items.forEach((currentItem, index) => {
     if (index > searchLimit) return;
 
-    console.log(
-      `title ${currentItem.volumeInfo.title} subtitle ${currentItem.volumeInfo.subtitle} authors ${currentItem.volumeInfo.authors}`
-    );
-
+      //volumeInfo.imageLinks.thumbnail
+      //volumeInfo.categories[]
+      //volumeInfo.mainCategory
     let searchTermInTitle =
       currentItem.volumeInfo.title
         .toLowerCase()
         .indexOf(searchTermSplit[0].toLowerCase()) >= 0;
-    console.log(`searchTermInTitle ${searchTermInTitle}`);
 
     let searchTermInAuthor =
       currentItem.volumeInfo.authors[0]
         .toLowerCase()
         .indexOf(searchTermSplit[0].toLowerCase()) >= 0;
-    console.log(`searchTermInAuthor ${searchTermInAuthor}`);
 
-    console.log(`description ${currentItem.volumeInfo.description}`);
-    console.log(`rating ${currentItem.volumeInfo.averageRating}`);
-    console.log(`number of ratings ${currentItem.volumeInfo.ratingsCount}`);
     let isForSale =
       currentItem.saleInfo.saleability === "NOT_FOR_SALE"
-        ? false
+        ? -1
         : currentItem.saleInfo.listPrice;
-    console.log(`for sale ${isForSale ? isForSale.amount : "0"}`);
     /**
      * rating,
      * ratingcount,
@@ -68,17 +61,18 @@ function createSearchResults(data, searchString, searchLimit) {
     results = [
       ...results,
       {
-        rating: "",
-        ratingcount: "",
+        id: currentItem.id,
+        rating: currentItem.volumeInfo.averageRating,
+        ratingcount: currentItem.volumeInfo.ratingsCount,
         price: isForSale,
         title: currentItem.volumeInfo.title,
         subtitle: currentItem.volumeInfo.subtitle,
         searchTermInTitle: searchTermInTitle,
         author: currentItem.volumeInfo.authors,
         searchTermInAuthor: searchTermInAuthor,
-        link: "",
+        link: currentItem.saleInfo.buyLink,
         description: currentItem.volumeInfo.description,
-        image: "",
+        image: currentItem.volumeInfo.imageLinks.thumbnail,
       },
     ];
   });
