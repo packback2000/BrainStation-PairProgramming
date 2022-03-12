@@ -18,9 +18,10 @@ function App() {
       <Header />
       <Routes>
       
-        <Route path="/" element={ <HomePage />}></Route>
+        <Route path="/" element={ <ListView />}></Route>
         <Route path="/search/:bookID" element = {<BookListPage /> } />
         <Route path="/searchTest" element = {<ListView />} />
+        <Route path='/search/StephenKing' element={<HomePage />} />
       </Routes>
       </BrowserRouter>
     </div>

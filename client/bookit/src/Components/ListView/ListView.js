@@ -2,11 +2,15 @@ import axios from "axios";
 import { Component } from "react";
 import ListItem from "../ListItem/ListItem";
 import Rating from "../Pricing/Rating";
+import HomePage from "../HomePage/HomePage";
+import "../../styles/styles.css"
+import Pricing from "../Pricing/Pricing";
 
 export default class ListView extends Component {
   state = {
     searchData: [],
     searchString: "dirty work",
+    bookData: [],
   };
 
   setSearchData = (searchDataIn) => {
@@ -30,22 +34,75 @@ export default class ListView extends Component {
       this.getSearchData();
   }
 
+  searchByRatingNumber = () => {
+    let bookVar = this.state.searchData.filter((book) => {
+          if(book.volumeInfo.ratingsCount >= 1){
+              console.log(book)
+              return book
+      }
+     })
+     console.log(bookVar)
+     this.setState({
+       searchData: bookVar
+     })
+    }
+
+  searchByAverageRating = () => {
+    let bookVar = this.state.bookData.filter((book) => {
+      console.log(book)
+      if(book.volumeInfo.averageRating >=4){
+        console.log(book)
+        return book
+      }
+    })
+     this.setState({
+       searchData:bookVar
+     })
+    }
+
   render() {
-    console.log(this.state.searchData);
+    
     return (
-      <div className="searchList">
-        {this.state.searchData.map((result, index) => (
-          <ListItem
-            key={result.id}
-            id={result.id}
-            title={result.title}
-            rating={result.rating}
-            ratingcount={result.ratingcount}
-            link={result.link}
-            image={result.image}
-          ></ListItem>
-        ))}
-      </div>
+      <section className="searchList">
+        <div className="test">
+        <div className="put-to-side">
+            <Pricing />
+            <div className="middle">
+                <form className="sidebar">
+                    <label>Filter By</label>
+                   <br></br>
+                   <br></br>
+                   <label>Ratings</label>
+                    <label className="switch">
+                        <input type='checkbox' value='Ratings' onClick={this.searchByRatingNumber}/>
+                        <span className="slider round"/>
+                        </label>
+                    <label>Average Ranking 4+</label>
+                    <label className="switch">
+                        <input type='checkbox' value='Average Rank' onClick={this.searchByAverageRating} />
+                        <span className="slider round"/>
+                    </label>
+                </form>
+                </div>
+                </div>
+                </div>
+        <div className="searchList">
+
+        
+          {this.state.searchData.map((result, index) => (
+            <ListItem
+              key={result.id}
+              id={result.id}
+              title={result.title}
+              rating={result.rating}
+              ratingcount={result.ratingcount}
+              link={result.link}
+              image={result.image}
+              price={result.price}
+            ></ListItem>
+          ))}
+        </div>
+      </section>
     );
   }
 }
