@@ -39,8 +39,11 @@ export default class Header extends React.Component{
                     <label>Enter a Search Term</label>
                     <input type='text' onChange={this.handleChangeSearch} value={this.state.search} name='search' />
                     <button type="submit" onClick={this.handleSubmit}>Search</button>
-
                 </form>
+
+                <Link to="/search/StephenKing">
+                    <p>Stephen King Books</p>
+                </Link>
             </section>    
         )
     }
