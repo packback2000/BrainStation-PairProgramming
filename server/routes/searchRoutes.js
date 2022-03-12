@@ -5,6 +5,8 @@ const searchRoutes = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 
+const DEFAULT_LIMIT = 10;
+
 // ///volumes/volumeId  TAFSEAAAQBAJ
 // let volumeId = "TAFSEAAAQBAJ";
 // queryString = `/${volumeId}?key=${process.env.API_KEY}`;
@@ -18,69 +20,70 @@ dotenv.config();
 //     //console.log(error);
 //   });
 
-function createSearchResults(data, searchString) {
-  let currentItem = data.items[0];
-  console.log(`ID ${currentItem.id}`);
-  console.log(`search string: ${searchString}`);
+function createSearchResults(data, searchString, searchLimit) {
+  let results = [];
 
   let searchTermSplit = searchString.split(" ");
-  //console.log(`search split: ${[searchTermSplit]}`);
 
-  console.log(
-    `title ${currentItem.volumeInfo.title} subtitle ${currentItem.volumeInfo.subtitle} authors ${currentItem.volumeInfo.authors}`
-  );
+  data.items.forEach((currentItem, index) => {
+    if (index > searchLimit) return;
 
-  let searchTermInTitle =
-    currentItem.volumeInfo.title
-      .toLowerCase()
-      .indexOf(searchTermSplit[0].toLowerCase()) >= 0;
-  console.log(`searchTermInTitle ${searchTermInTitle}`);
+      //volumeInfo.imageLinks.thumbnail
+      //volumeInfo.categories[]
+      //volumeInfo.mainCategory
+    let searchTermInTitle =
+      currentItem.volumeInfo.title
+        .toLowerCase()
+        .indexOf(searchTermSplit[0].toLowerCase()) >= 0;
 
-  let searchTermInAuthor =
-    currentItem.volumeInfo.authors[0]
-      .toLowerCase()
-      .indexOf(searchTermSplit[0].toLowerCase()) >= 0;
-  console.log(`searchTermInAuthor ${searchTermInAuthor}`);
+    let searchTermInAuthor =
+      currentItem.volumeInfo.authors[0]
+        .toLowerCase()
+        .indexOf(searchTermSplit[0].toLowerCase()) >= 0;
 
-  console.log(`description ${currentItem.volumeInfo.description}`);
-  console.log(`rating ${currentItem.volumeInfo.averageRating}`);
-  console.log(`number of ratings ${currentItem.volumeInfo.ratingsCount}`);
-  let isForSale =
-    currentItem.saleInfo.saleability === "NOT_FOR_SALE"
-      ? false
-      : currentItem.saleInfo.listPrice;
-  console.log(`for sale ${isForSale ? isForSale.amount : "0"}`);
-  /**
-   * rating,
-   * ratingcount,
-   * price,
-   * title,
-   * subtitle,
-   * searchTermInTitle,
-   * author,
-   * searchTermInAuthor
-   * link,
-   * description,
-   * image,
-   */
-  return {
-    rating: "",
-    ratingcount: "",
-    price: isForSale,
-    title: currentItem.volumeInfo.title,
-    subtitle: currentItem.volumeInfo.subtitle,
-    searchTermInTitle: searchTermInTitle,
-    author: currentItem.volumeInfo.authors,
-    searchTermInAuthor: searchTermInAuthor,
-    link: "",
-    description: currentItem.volumeInfo.description,
-    image: "",
-  };
+    let isForSale =
+      currentItem.saleInfo.saleability === "NOT_FOR_SALE"
+        ? -1
+        : currentItem.saleInfo.listPrice;
+    /**
+     * rating,
+     * ratingcount,
+     * price,
+     * title,
+     * subtitle,
+     * searchTermInTitle,
+     * author,
+     * searchTermInAuthor
+     * link,
+     * description,
+     * image,
+     */
+    results = [
+      ...results,
+      {
+        id: currentItem.id,
+        rating: currentItem.volumeInfo.averageRating,
+        ratingcount: currentItem.volumeInfo.ratingsCount,
+        price: isForSale,
+        title: currentItem.volumeInfo.title,
+        subtitle: currentItem.volumeInfo.subtitle,
+        searchTermInTitle: searchTermInTitle,
+        author: currentItem.volumeInfo.authors,
+        searchTermInAuthor: searchTermInAuthor,
+        link: currentItem.saleInfo.buyLink,
+        description: currentItem.volumeInfo.description,
+        image: currentItem.volumeInfo.imageLinks.thumbnail,
+      },
+    ];
+  });
+
+  return results;
 }
 
 searchRoutes.get("/:searchString", (req, res) => {
   let searchTerm = req.params.searchString;
-  console.log(`----------- QUERY IN: ${searchTerm} -----------`);
+  let searchLimit = req.query.limit || DEFAULT_LIMIT;
+  console.log(`----------- QUERY IN: ${searchTerm} ${searchLimit}-----------`);
 
   const queryBooksAPI = async () => {
     let queryString = `?q=${searchTerm}&orderBy=newest&key=${process.env.API_KEY}`;
@@ -90,7 +93,7 @@ searchRoutes.get("/:searchString", (req, res) => {
         `${process.env.API_URL}${queryString}`
       );
       console.log(data);
-      res.send(createSearchResults(data, searchTerm));
+      res.send(createSearchResults(data, searchTerm, searchLimit));
     } catch (err) {
       console.log(err);
     }
