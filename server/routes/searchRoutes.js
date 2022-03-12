@@ -99,6 +99,4 @@ searchRoutes.get("/:searchString", (req, res) => {
   queryBooksAPI();
 });
 
-//queryBooksAPI("dirty work");
-
 module.exports = searchRoutes;
