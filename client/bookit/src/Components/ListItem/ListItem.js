@@ -2,7 +2,7 @@ function ListItem(props) {
   return (
     <div className="search__list">
       <h1 className="search__list_title">
-        <a href={props.link}>{props.title}</a>
+        <a href={props.link} target="_blank">{props.title}</a>
       </h1>
       <img src={props.image}/>
       <div className="search__list__details">

@@ -1,12 +1,14 @@
 import axios from "axios";
 import { Component } from "react";
 import ListItem from "../ListItem/ListItem";
-import Rating from "../Pricing/Rating";
 
-export default class ListView extends Component {
+export default class FilteredList extends Component {
   state = {
     searchData: [],
     searchString: "dirty work",
+    ratingRange:{min: 0, max:10},
+    priceRange:{min: 0, max:10},
+    ratingFilter: 0,
   };
 
   setSearchData = (searchDataIn) => {
@@ -15,6 +17,18 @@ export default class ListView extends Component {
 
   setSearchString = (searchStringIn) => {
     this.setState({ searchString: searchStringIn });
+  };
+
+  setRatingRange = (ratingDataIn) => {
+    this.setState({ ratingRange: ratingDataIn });
+  };
+
+  setPriceRange = (priceDataIn) => {
+    this.setState({ priceRange: priceDataIn });
+  };
+
+  setRatingFilter = (ratingDataIn) => {
+    this.setState({ ratingFilter: ratingDataIn });
   };
 
   getSearchData = () => {
@@ -26,6 +40,11 @@ export default class ListView extends Component {
       });
   };
 
+  rangeChangeHandler = (event) =>{
+      console.log(event);
+      this.setRatingFilter(event.target.value);
+  }
+
   componentDidMount(){
       this.getSearchData();
   }
@@ -34,7 +53,8 @@ export default class ListView extends Component {
     console.log(this.state.searchData);
     return (
       <div className="searchList">
-        {this.state.searchData.map((result, index) => (
+        <input type="range" onChange={this.rangeChangeHandler} min={this.state.ratingRange.min} max={this.state.ratingRange.max} value={this.state.ratingFilter} className="slider" id="ratingRange"></input>
+        {this.state.searchData.filter(result => result.rating >= this.state.ratingFilter).map((result, index) => (
           <ListItem
             key={result.id}
             id={result.id}

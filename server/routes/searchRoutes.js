@@ -62,8 +62,8 @@ function createSearchResults(data, searchString, searchLimit) {
       ...results,
       {
         id: currentItem.id,
-        rating: currentItem.volumeInfo.averageRating,
-        ratingcount: currentItem.volumeInfo.ratingsCount,
+        rating: currentItem.volumeInfo.averageRating || 0,
+        ratingcount: currentItem.volumeInfo.ratingsCount || 0,
         price: isForSale,
         title: currentItem.volumeInfo.title,
         subtitle: currentItem.volumeInfo.subtitle,
