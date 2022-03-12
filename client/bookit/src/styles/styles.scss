@@ -39,11 +39,11 @@ header {
     }
     
     input:checked + .slider {
-        background-color: #2196F3;
+        background-color: cornflowerblue;
     }
     
     input:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
+        box-shadow: 0 0 1px cornflowerblue;
     }
     
     input:checked + .slider:before {
@@ -65,7 +65,6 @@ header {
 
 .middle {
     display: flex;
-    margin-top: 10%;
 
     .List {
         display: flex;
@@ -80,22 +79,38 @@ header {
             margin: 0px;
             margin: auto;
         }
+   
+
+    
+}
+.booklist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    border: 2px solid #333;
+    padding: 15px;
+
+    .book-image {
+        width: 50%;
     }
 
-    .booklist {
-        display: flex;
-        flex-direction: column;
-        
-    
-        p {
-            margin: 5px;
-            
-        }
-    
-        .book-author {
-            margin: 5px;
-        }
+    .book-title {
+        font-size: 30px;
     }
+
+    .book-author {
+        font-size: 25px;
+    }
+
+    .book-rating {
+        width: 95%;
+    }
+
+    .rating-count{
+        width: 95%;
+    }
+}
     .bookList {
         display: flex;
         flex-direction: column;
@@ -146,11 +161,11 @@ header {
             }
             
             input:checked + .slider {
-                background-color: #2196F3;
+                background-color: cornflowerblue;
             }
             
             input:focus + .slider {
-                box-shadow: 0 0 1px #2196F3;
+                box-shadow: 0 0 1px cornflowerblue;
             }
             
             input:checked + .slider:before {

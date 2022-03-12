@@ -30,10 +30,10 @@ header .slider:before {
   transition: 0.4s;
 }
 header input:checked + .slider {
-  background-color: #2196F3;
+  background-color: cornflowerblue;
 }
 header input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px cornflowerblue;
 }
 header input:checked + .slider:before {
   transform: translateX(26px);
@@ -47,7 +47,6 @@ header .slider.round:before {
 
 .middle {
   display: flex;
-  margin-top: 10%;
 }
 .middle .List {
   display: flex;
@@ -64,12 +63,25 @@ header .slider.round:before {
 .middle .booklist {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border: 2px solid #333;
+  padding: 15px;
 }
-.middle .booklist p {
-  margin: 5px;
+.middle .booklist .book-image {
+  width: 50%;
+}
+.middle .booklist .book-title {
+  font-size: 30px;
 }
 .middle .booklist .book-author {
-  margin: 5px;
+  font-size: 25px;
+}
+.middle .booklist .book-rating {
+  width: 95%;
+}
+.middle .booklist .rating-count {
+  width: 95%;
 }
 .middle .bookList {
   display: flex;
@@ -112,10 +124,10 @@ header .slider.round:before {
   transition: 0.4s;
 }
 .middle .sidebar input:checked + .slider {
-  background-color: #2196F3;
+  background-color: cornflowerblue;
 }
 .middle .sidebar input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px cornflowerblue;
 }
 .middle .sidebar input:checked + .slider:before {
   transform: translateX(26px);

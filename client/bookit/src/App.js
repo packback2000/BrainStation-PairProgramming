@@ -5,6 +5,8 @@ import DarkMode from "./DarkMode";
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
+import Header from "./Components/Header/Header";
+import BookListPage from "./Components/BookListPage/BookListPage";
 
 
 function App() {
@@ -14,10 +16,11 @@ function App() {
     <div>
       <BrowserRouter>
       <DarkMode></DarkMode>
+      <Header />
       <Routes>
-        
         <Route path="/" element={ <HomePage />}></Route>
-        </Routes>
+        <Route path="/search/:bookID" element = {<BookListPage /> } />
+      </Routes>
       </BrowserRouter>
     </div>
     

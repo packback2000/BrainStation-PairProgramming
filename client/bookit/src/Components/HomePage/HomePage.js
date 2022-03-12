@@ -933,16 +933,17 @@ export default class HomePage extends React.Component {
         this.setState({
             search: event.target.value
         })
-
-       
     }
     
     handleSubmit = (e) => {
         e.preventDefault();
-        for (let i = 0; i < books.length; i++) {
+        for (let i = 0; i < this.state.bookData.length; i++) {
+          let books = this.state.bookData
             books.map((book) => {
-                if (book.description.includes(this.state.search) || book.title.includes(this.state.search)  || book.author.includes(this.state.search)) {
-                    console.log(book)
+                if (book.volumeInfo.title === (this.state.search)  || book.volumeInfo.authors === (this.state.search)) {
+                    this.setState({
+                      bookData: book
+                    })
                 }
             })
         }
@@ -961,25 +962,30 @@ export default class HomePage extends React.Component {
     }
 
     searchByRatingNumber = () => {
-       this.state.bookData.map((book) => {
+      let bookVar = this.state.bookData.filter((book) => {
             if(book.volumeInfo.ratingsCount >= 50){
                 console.log(book)
                 return book
         }
        })
-    }
+       console.log(bookVar)
+       this.setState({
+         bookData: bookVar
+       })
+      }
 
     searchByAverageRating = () => {
         this.state.bookData.map((book) => {
-            if(book.volumeInfo.averageRating >= 3) {
-                console.log(book)
-                return book
+            if(book.volumeInfo.averageRating >= 4) {
+               let bookByRating = this.state.bookData.filter(book)
+                this.setState({
+                  bookData: bookByRating
+                })
             }
         })
     }
 
-    fetchVideoDetails() {
-        //http://localhost:8080/search/[searchstring]
+    fetchBookDetails() {
        axios.get("https://www.googleapis.com/books/v1/volumes?q=stephen%20king+author")
        .then((response) => {
            let allData = response.data.items;
@@ -990,7 +996,10 @@ export default class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchVideoDetails();
+        this.fetchBookDetails();
+        let searchString = this.state.search
+        axios.get('http://localhost:8080/search/' + searchString)
+        .then(response => console.log(response))
     }
 
     componentWillUnmount() {
@@ -1016,8 +1025,9 @@ export default class HomePage extends React.Component {
 
             <div className="middle">
                 <form className="sidebar">
-                    <label>What Would You Like to Search By?</label>
-                   
+                    <label>Filter By</label>
+                   <br></br>
+                   <br></br>
                    <label>Over 50 Ratings</label>
                     <label className="switch">
                         <input type='checkbox' value='Ratings' onClick={this.searchByRatingNumber}/>
@@ -1034,6 +1044,7 @@ export default class HomePage extends React.Component {
                 <div className="bookList">
                 {this.state.bookData.map((video) => 
                 <div className="List">
+                
                 <BookListPage 
                 id = {video.id}
                 title = {video.volumeInfo.title}
