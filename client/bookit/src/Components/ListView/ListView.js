@@ -11,6 +11,7 @@ export default class ListView extends Component {
     searchData: [],
     searchString: "dirty work",
     bookData: [],
+    search:[]
   };
 
   setSearchData = (searchDataIn) => {
@@ -60,15 +61,41 @@ export default class ListView extends Component {
      })
     }
 
+      
+  handleChangeSearch = (event) => {
+    this.setState({
+        search: event.target.value
+    })
+}
+
+handleSubmit = (e) => {
+    e.preventDefault();
+    let bookVar = this.state.searchData.filter((book) => {
+      console.log(book)
+            if (book.title === (this.state.search)) {
+                return book
+            }
+        })
+        this.setState({
+          searchData: bookVar
+        })
+    
+    }
+
   render() {
     
     return (
-      <section className="searchList">
+      <section >
+         <form onSubmit={this.handleSubmit} className='mainform'>
+                    <label>Enter a Search Term</label>
+                    <input type='text' onChange={this.handleChangeSearch} value={this.state.search} name='search' />
+                    <button type="submit" onClick={this.handleSubmit}>Search</button>
+                </form>
+        <div className="searchList">
         <div className="test">
         <div className="put-to-side">
             <div className="middle">
                 <form className="sidebar">
-                    <label>Filter By</label>
                    <br></br>
                    <br></br>
                    <label>Ratings</label>
@@ -100,6 +127,7 @@ export default class ListView extends Component {
               price={result.price}
             ></ListItem>
           ))}
+        </div>
         </div>
       </section>
     );

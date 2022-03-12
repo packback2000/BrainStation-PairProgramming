@@ -6,13 +6,14 @@ export default class Header extends React.Component{
     constructor(props) {
         super (props);
         this.state = {
-            bookdata:[]
+            bookdata:[],
+            searchData: []
         }
     }
 
     handleChangeSearch = (event) => {
         this.setState({
-            search: event.target.value
+            searchData: event.target.value
         })
     }
     
@@ -34,13 +35,6 @@ export default class Header extends React.Component{
                 <Link to="/" >
                     <h1>BOOKIT</h1>
                 </Link>
-
-                <form onSubmit={this.handleSubmit} className='mainform'>
-                    <label>Enter a Search Term</label>
-                    <input type='text' onChange={this.handleChangeSearch} value={this.state.search} name='search' />
-                    <button type="submit" onClick={this.handleSubmit}>Search</button>
-                </form>
-
                 <Link to="/search/StephenKing">
                     <p>Stephen King Books</p>
                 </Link>

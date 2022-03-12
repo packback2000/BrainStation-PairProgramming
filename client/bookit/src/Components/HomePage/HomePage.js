@@ -25,14 +25,29 @@ export default class HomePage extends React.Component {
             weeksOnList: '',
             image: '',
             rank: '',
-            amazonLink: '',
             bookMap: [],
         }
     }
 
-   
-        
-
+    handleChangeSearch = (event) => {
+      this.setState({
+          search: event.target.value
+      })
+  }
+  
+  handleSubmit = (e) => {
+      e.preventDefault();
+      let bookVar = this.state.bookData.filter((book) => {
+        console.log(book)
+              if (book.volumeInfo.title === (this.state.search)) {
+                  return book
+              }
+          })
+          this.setState({
+            bookData: bookVar
+          })
+      
+      }
 
     searchByRatingNumber = () => {
       let bookVar = this.state.bookData.filter((book) => {
@@ -58,7 +73,6 @@ export default class HomePage extends React.Component {
          bookData:bookVar
        })
     }
-
 
     fetchBookDetails() {
        axios.get("https://www.googleapis.com/books/v1/volumes?q=stephen%20king+author")
@@ -87,6 +101,11 @@ export default class HomePage extends React.Component {
         return(
             <section className="test">
 
+                <form onSubmit={this.handleSubmit} className='mainform'>
+                    <label>Enter a Search Term</label>
+                    <input type='text' onChange={this.handleChangeSearch} value={this.state.search} name='search' />
+                    <button type="submit" onClick={this.handleSubmit}>Search</button>
+                </form>
            
             <div className="all">
                 <form className="sidebar">

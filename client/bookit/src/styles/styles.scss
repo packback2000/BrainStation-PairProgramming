@@ -297,3 +297,15 @@ header {
     }
 
 }
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainform {
+   margin: 15px;
+   display: flex;
+   justify-content: center;
+}
