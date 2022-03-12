@@ -52,6 +52,7 @@ function createSearchResults(data, searchString) {
   console.log(`for sale ${isForSale ? isForSale.amount : "0"}`);
   /**
    * rating,
+   * ratingcount,
    * price,
    * title,
    * subtitle,
@@ -59,10 +60,12 @@ function createSearchResults(data, searchString) {
    * author,
    * searchTermInAuthor
    * link,
-   * description
+   * description,
+   * image,
    */
   return {
-    rating: currentItem.volumeInfo.averageRating,
+    rating: "",
+    ratingcount: "",
     price: isForSale,
     title: currentItem.volumeInfo.title,
     subtitle: currentItem.volumeInfo.subtitle,
@@ -71,6 +74,7 @@ function createSearchResults(data, searchString) {
     searchTermInAuthor: searchTermInAuthor,
     link: "",
     description: currentItem.volumeInfo.description,
+    image: "",
   };
 }
 
