@@ -99,16 +99,8 @@ export default class ListView extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let bookVar = this.state.searchData.filter((book) => {
-            if (book.title === (this.state.search) || book.author === (this.state.search)) {
-                return book
-            }
-        })
-        this.setState({
-          searchData: bookVar
-        })
-    
-    }
+    this.getSearchData();
+  }
 
   render() {
     return (
@@ -129,6 +121,7 @@ export default class ListView extends Component {
           <div>
             <div>
               <div>
+                <label htmlFor="ratingRange">Rating</label>
                 <input
                   type="range"
                   onChange={this.rangeChangeHandler}
@@ -138,6 +131,7 @@ export default class ListView extends Component {
                   className="slider"
                   id="ratingRange"
                 ></input>
+                <label htmlFor="priceRange">Price</label>
                 <input
                   type="range"
                   onChange={this.rangeChangeHandler}
