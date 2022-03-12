@@ -41,8 +41,28 @@ export default class FilteredList extends Component {
       .get(`http://localhost:8080/search/${this.state.searchString}`)
       .then((res) => {
         const searchResults = res.data;
+        const priceRange = this.getMinMaxPrice(searchResults);
+        const ratingRange = this.getMinMaxRate(searchResults);
+        this.setPriceRange({min: priceRange[0],max:priceRange[1]});
+        this.setRatingRange({min: ratingRange[0],max:ratingRange[1]});
         this.setSearchData(searchResults);
       });
+  };
+
+  getMinMaxPrice = (data) => {
+    return data.reduce((acc, val) => {
+      acc[0] = acc[0] === undefined || val.price.amount < acc[0] ? val.price.amount : acc[0];
+      acc[1] = acc[1] === undefined || val.price.amount > acc[1] ? val.price.amount : acc[1];
+      return acc;
+    }, []);
+  };
+
+  getMinMaxRate = (data) => {
+    return data.reduce((acc, val) => {
+      acc[0] = acc[0] === undefined || val.rating < acc[0] ? val.rating : acc[0];
+      acc[1] = acc[1] === undefined || val.rating > acc[1] ? val.rating : acc[1];
+      return acc;
+    }, []);
   };
 
   rangeChangeHandler = (event) => {
@@ -84,7 +104,11 @@ export default class FilteredList extends Component {
           id="priceRange"
         ></input>
         {this.state.searchData
-          .filter((result) => (result.rating >= this.state.ratingFilter && result.price >= this.state.priceFilter))
+          .filter(
+            (result) =>
+              result.rating >= this.state.ratingFilter &&
+              result.price.amount >= this.state.priceFilter
+          )
           .map((result, index) => (
             <ListItem
               key={result.id}
